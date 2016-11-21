@@ -1,0 +1,27 @@
+%h1 Listing devices
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th State
+      %th Ip address
+      %th Pinged at
+      %th
+      %th
+      %th
+
+  %tbody
+    - @devices.each do |device|
+      %tr
+        %td= device.name
+        %td= device.state
+        %td= device.ip_address
+        %td= device.pinged_at
+        %td= link_to 'Show', device
+        %td= link_to 'Edit', edit_device_path(device)
+        %td= link_to 'Destroy', device, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Device', new_device_path

@@ -1,16 +1,8 @@
-/*
- *  This sketch sends data via HTTP GET requests to data.sparkfun.com service.
- *
- *  You need to get streamId and privateKey at data.sparkfun.com and paste them
- *  below. Or just customize this script to talk to other HTTP servers.
- *
- */
-
 #include <ESP8266WiFi.h>
 
 const char* ssid     = "Luigi";
 const char* password = "lacasadeluigi2016";
-const char* host = "192.168.0.13";
+const char* host = "192.168.0.11";
 
 void setup() {
   Serial.begin(115200);
@@ -19,8 +11,6 @@ void setup() {
   digitalWrite(2, LOW);
   
   delay(10);
-
-  // We start by connecting to a WiFi network
 
   Serial.println();
   Serial.println();
@@ -57,7 +47,7 @@ void loop() {
     return;
   }
   
-  String url = "/devises/1";
+  String url = "/devices/1.text";
   
   Serial.print("Requesting URL: ");
   Serial.println(url);
@@ -76,21 +66,20 @@ void loop() {
   }
 
   int i = 0;
-  String state = "0";
+  String state = "off";
   
   while(client.available()){
     String line = client.readStringUntil('\r');
 
     if(i == 13){
       state = line;
-      Serial.print(line);
     }
     i++;
   }
 
   state.trim();
 
-  if(state == "1"){
+  if(state == "on"){
     digitalWrite(2, HIGH);
   }else{
     digitalWrite(2, LOW);

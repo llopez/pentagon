@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  state: MyString
+  ip_address: MyString
+  pinged_at: 2016-11-20 20:58:20
+
+two:
+  name: MyString
+  state: MyString
+  ip_address: MyString
+  pinged_at: 2016-11-20 20:58:20
