@@ -10,7 +10,8 @@
     = f.label :name
     = f.text_field :name
   .field
-    = f.label :state
-    = f.select :state, ['on', 'off'], include_blank: true
+    = f.label :state, class: 'switch' do
+      = f.check_box :state, {}, "on", "off"
+      .slider
   .actions
     = f.submit 'Save'
