@@ -1,19 +1,16 @@
-%h1 dashboard
-
-%table
-  %tr
-    %th Name
-    %th State
-    %th IP
-    %th Heartbeat
-    %th 
-  - @devices.each do |device|
-    %tr
-      %td= device.name 
-      %td= device.state 
-      %td= device.ip_address || "0.0.0.0"
-      %td= device.pinged_at || "-"
-      %td
+- @devices.each do |device|
+  %article.media
+    %figure.media-left
+      %p.image.is-128x128
+        = image_tag "bulb.png"
+    .media-content
+      .content
+        %p
+          %strong= device.name
+          %br
+          = device.ip_address || "0.0.0.0"
+          %br
+          = device.pinged_at || "--"
         = form_for device do |f|
           = f.label :state, class: 'switch' do
             = f.check_box :state, {}, "on", "off"

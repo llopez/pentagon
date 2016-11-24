@@ -1,0 +1,36 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Pentagon
+    = csrf_meta_tags
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+  %body
+    %section.hero.is-primary
+      .hero-body
+        .container
+          .columns
+            .column.is-one-quarter
+              %h1.title
+                Pentagon
+              %h2.subtitle
+                Home Control
+      .hero-foot
+        %nav.nav.has-shadow
+          .container
+            .nav-right
+              %a.nav-item.is-tab.is-active{:href => "/"} Dashboard
+              %a.nav-item.is-tab{:href => "/devices"} Devices
+    %section.section
+      .columns
+        .column
+          = yield
+    %footer.footer
+      .container
+        .content.has-text-centered
+          %p
+            %strong Pentagon
+            by
+            %a{:href => "http://luigibyte.com.ar", :target => "blank"} luigibyte
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'

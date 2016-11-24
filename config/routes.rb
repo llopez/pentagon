@@ -3,5 +3,5 @@ Rails.application.routes.draw do
 
   get 'dashboard' => 'dashboard#show', as: :dashboard
 
-  root to: 'devices#index'
+  root to: 'dashboard#show'
 end
