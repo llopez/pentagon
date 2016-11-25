@@ -1,3 +1,5 @@
+#root
+
 - @devices.each do |device|
   %article.media
     %figure.media-left
@@ -15,4 +17,3 @@
           = f.label :state, class: 'switch' do
             = f.check_box :state, {}, "on", "off"
             .slider
-
