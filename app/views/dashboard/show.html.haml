@@ -1,19 +1,1 @@
 #root
-
-- @devices.each do |device|
-  %article.media
-    %figure.media-left
-      %p.image.is-128x128
-        = image_tag "bulb.png"
-    .media-content
-      .content
-        %p
-          %strong= device.name
-          %br
-          = device.ip_address || "0.0.0.0"
-          %br
-          = device.pinged_at || "--"
-        = form_for device do |f|
-          = f.label :state, class: 'switch' do
-            = f.check_box :state, {}, "on", "off"
-            .slider
