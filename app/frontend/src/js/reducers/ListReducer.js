@@ -1,8 +1,11 @@
-const listReducer = (state = [], action) => {
+const listReducer = (state = {items: []}, action) => {
 
   switch (action.type) {
     case 'ADD_ITEM':
-      return state.concat(action.payload);
+      return state.items.concat(action.payload);
+      break;
+    case 'RECEIVE_ITEMS':
+      return Object.assign(state, {items: action.payload});
       break;
     default:
       return state;

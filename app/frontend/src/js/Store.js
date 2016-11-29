@@ -1,7 +1,9 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import listReducer from './reducers/ListReducer';
+import thunk from 'redux-thunk';
 
-const store = createStore(listReducer);
+const middleware = applyMiddleware(thunk);
+const store = createStore(listReducer, middleware);
 
 
 export default store;

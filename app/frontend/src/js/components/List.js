@@ -10,7 +10,7 @@ export default class List extends React.Component {
 
   componentWillMount() {
     store.subscribe(() => {
-      this.setState({items: store.getState()});
+      this.setState({items: store.getState().items});
     });
   }
 

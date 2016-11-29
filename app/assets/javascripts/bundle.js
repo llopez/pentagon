@@ -58,7 +58,7 @@
 
 	var _Store2 = _interopRequireDefault(_Store);
 
-	var _List = __webpack_require__(201);
+	var _List = __webpack_require__(202);
 
 	var _List2 = _interopRequireDefault(_List);
 
@@ -88,6 +88,21 @@
 
 	  return App;
 	}(_react2.default.Component);
+
+	_Store2.default.dispatch(function (dispatch) {
+	  fetch('/devices', {
+	    method: 'GET',
+	    headers: {
+	      'Accept': 'application/json',
+	      'Content-Type': 'application/json',
+	      'Authorization': 'Token token=' + '1234'
+	    }
+	  }).then(function (res) {
+	    return res.json();
+	  }).then(function (res) {
+	    dispatch({ type: 'RECEIVE_ITEMS', payload: res });
+	  });
+	});
 
 	(0, _reactDom.render)(_react2.default.createElement(App, null), document.getElementById('root'));
 
@@ -21514,9 +21529,14 @@
 
 	var _ListReducer2 = _interopRequireDefault(_ListReducer);
 
+	var _reduxThunk = __webpack_require__(201);
+
+	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var store = (0, _redux.createStore)(_ListReducer2.default);
+	var middleware = (0, _redux.applyMiddleware)(_reduxThunk2.default);
+	var store = (0, _redux.createStore)(_ListReducer2.default, middleware);
 
 	exports.default = store;
 
@@ -22566,13 +22586,16 @@
 	  value: true
 	});
 	var listReducer = function listReducer() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { items: [] };
 	  var action = arguments[1];
 
 
 	  switch (action.type) {
 	    case 'ADD_ITEM':
-	      return state.concat(action.payload);
+	      return state.items.concat(action.payload);
+	      break;
+	    case 'RECEIVE_ITEMS':
+	      return Object.assign(state, { items: action.payload });
 	      break;
 	    default:
 	      return state;
@@ -22583,6 +22606,34 @@
 
 /***/ },
 /* 201 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	function createThunkMiddleware(extraArgument) {
+	  return function (_ref) {
+	    var dispatch = _ref.dispatch;
+	    var getState = _ref.getState;
+	    return function (next) {
+	      return function (action) {
+	        if (typeof action === 'function') {
+	          return action(dispatch, getState, extraArgument);
+	        }
+
+	        return next(action);
+	      };
+	    };
+	  };
+	}
+
+	var thunk = createThunkMiddleware();
+	thunk.withExtraArgument = createThunkMiddleware;
+
+	exports['default'] = thunk;
+
+/***/ },
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22597,7 +22648,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Item = __webpack_require__(202);
+	var _Item = __webpack_require__(203);
 
 	var _Item2 = _interopRequireDefault(_Item);
 
@@ -22631,9 +22682,7 @@
 	      var _this2 = this;
 
 	      _Store2.default.subscribe(function () {
-	        console.log(_Store2.default.getState());
-
-	        _this2.setState({ items: _Store2.default.getState() });
+	        _this2.setState({ items: _Store2.default.getState().items });
 	      });
 	    }
 	  }, {
@@ -22657,7 +22706,7 @@
 	exports.default = List;
 
 /***/ },
-/* 202 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
