@@ -16,7 +16,7 @@ export default class List extends React.Component {
 
   render() {
     let items = this.state.items.map((i) => {
-      return <Item key={i.id} name={i.name} ip={i.ip_address} pingedAt={i.pinged_at} />;
+      return <Item key={i.id} name={i.name} ip={i.ip_address} state={i.state} pingedAt={i.pinged_at} />;
     });
 
     return (

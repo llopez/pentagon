@@ -19,7 +19,7 @@ export default class Item extends React.Component {
               {this.props.pingedAt}
             </p>
             <label className="switch">
-              <input type="checkbox" value="on" />
+              <input type="checkbox" value="on" checked={this.props.state == 'on' ? true : false} />
               <div className="slider" />
             </label>
           </div>

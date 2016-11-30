@@ -22689,7 +22689,7 @@
 	    key: 'render',
 	    value: function render() {
 	      var items = this.state.items.map(function (i) {
-	        return _react2.default.createElement(_Item2.default, { key: i.id, name: i.name, ip: i.ip_address, pingedAt: i.pinged_at });
+	        return _react2.default.createElement(_Item2.default, { key: i.id, name: i.name, ip: i.ip_address, state: i.state, pingedAt: i.pinged_at });
 	      });
 
 	      return _react2.default.createElement(
@@ -22775,7 +22775,7 @@
 	            _react2.default.createElement(
 	              "label",
 	              { className: "switch" },
-	              _react2.default.createElement("input", { type: "checkbox", value: "on" }),
+	              _react2.default.createElement("input", { type: "checkbox", value: "on", checked: this.props.state == 'on' ? true : false }),
 	              _react2.default.createElement("div", { className: "slider" })
 	            )
 	          )
