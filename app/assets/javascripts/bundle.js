@@ -22689,7 +22689,7 @@
 	    key: 'render',
 	    value: function render() {
 	      var items = this.state.items.map(function (i) {
-	        return _react2.default.createElement(_Item2.default, { key: i.id, name: i.name, ip: i.ip_address, state: i.state, pingedAt: i.pinged_at });
+	        return _react2.default.createElement(_Item2.default, { key: i.id, id: i.id, name: i.name, ip: i.ip_address, state: i.state, pingedAt: i.pinged_at });
 	      });
 
 	      return _react2.default.createElement(
@@ -22709,7 +22709,7 @@
 /* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -22720,6 +22720,10 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _Store = __webpack_require__(178);
+
+	var _Store2 = _interopRequireDefault(_Store);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22732,51 +22736,79 @@
 	var Item = function (_React$Component) {
 	  _inherits(Item, _React$Component);
 
-	  function Item() {
+	  function Item(props) {
 	    _classCallCheck(this, Item);
 
-	    return _possibleConstructorReturn(this, (Item.__proto__ || Object.getPrototypeOf(Item)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (Item.__proto__ || Object.getPrototypeOf(Item)).call(this, props));
+
+	    _this._toggleState = _this._toggleState.bind(_this);
+	    return _this;
 	  }
 
 	  _createClass(Item, [{
-	    key: "render",
+	    key: '_toggleState',
+	    value: function _toggleState() {
+	      var _this2 = this;
+
+	      var data = {
+	        state: this.props.state == 'on' ? 'off' : 'on'
+	      };
+
+	      _Store2.default.dispatch(function (dispatch) {
+	        fetch('/devices/' + _this2.props.id, {
+	          method: 'PUT',
+	          body: JSON.stringify(data),
+	          headers: {
+	            'Accept': 'application/json',
+	            'Content-Type': 'application/json',
+	            'Authorization': 'Token token=' + '1234'
+	          }
+	        }).then(function (res) {
+	          return res.json();
+	        }).then(function (res) {
+	          dispatch({ type: 'RECEIVE_ITEM', payload: res });
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        "article",
-	        { className: "media" },
+	        'article',
+	        { className: 'media' },
 	        _react2.default.createElement(
-	          "figure",
-	          { className: "media-left" },
+	          'figure',
+	          { className: 'media-left' },
 	          _react2.default.createElement(
-	            "p",
-	            { className: "image is-128x128" },
-	            _react2.default.createElement("img", { src: "/assets/bulb.png" })
+	            'p',
+	            { className: 'image is-128x128' },
+	            _react2.default.createElement('img', { src: '/assets/bulb.png' })
 	          )
 	        ),
 	        _react2.default.createElement(
-	          "div",
-	          { className: "media-content" },
+	          'div',
+	          { className: 'media-content' },
 	          _react2.default.createElement(
-	            "div",
-	            { className: "content" },
+	            'div',
+	            { className: 'content' },
 	            _react2.default.createElement(
-	              "p",
+	              'p',
 	              null,
 	              _react2.default.createElement(
-	                "strong",
+	                'strong',
 	                null,
 	                this.props.name
 	              ),
-	              _react2.default.createElement("br", null),
+	              _react2.default.createElement('br', null),
 	              this.props.ip,
-	              _react2.default.createElement("br", null),
+	              _react2.default.createElement('br', null),
 	              this.props.pingedAt
 	            ),
 	            _react2.default.createElement(
-	              "label",
-	              { className: "switch" },
-	              _react2.default.createElement("input", { type: "checkbox", value: "on", checked: this.props.state == 'on' ? true : false }),
-	              _react2.default.createElement("div", { className: "slider" })
+	              'label',
+	              { className: 'switch' },
+	              _react2.default.createElement('input', { type: 'checkbox', value: 'on', checked: this.props.state == 'on' ? true : false, onChange: this._toggleState }),
+	              _react2.default.createElement('div', { className: 'slider' })
 	            )
 	          )
 	        )
