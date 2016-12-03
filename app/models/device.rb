@@ -5,8 +5,8 @@ class Device < ApplicationRecord
 
   def send_message
     MQTT::Client.connect(Rails.application.secrets.mqtt_server) do |c|
-      c.publish("device/#{id}", state)
-      #puts c.get("device/#{id}/ack")
+      c.publish("device/#{id}", state == 'on' ? 1 : 0 )
+      #puts c.get("device/#{id}/ack").class
     end
   end
 end

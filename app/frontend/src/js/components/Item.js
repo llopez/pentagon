@@ -16,7 +16,7 @@ export default class Item extends React.Component {
     };
 
     store.dispatch((dispatch) => {
-      fetch('/devices/' + this.props.id, {
+      fetch('/api/v1/devices/' + this.props.id, {
         method: 'PUT',
         body: JSON.stringify(data),
         headers: {
@@ -27,7 +27,7 @@ export default class Item extends React.Component {
       }).then((res) => {
         return res.json();
       }).then((res) => {
-        dispatch({type: 'RECEIVE_ITEM', payload: res})
+        dispatch({type: 'RECEIVE_ITEMS', payload: res})
       });
     });   
   }

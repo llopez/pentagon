@@ -10,7 +10,7 @@ class App extends React.Component {
 }
 
 store.dispatch((dispatch) => {
-  fetch('/devices', {
+  fetch('/api/v1/devices', {
     method: 'GET',
     headers: {
       'Accept': 'application/json',

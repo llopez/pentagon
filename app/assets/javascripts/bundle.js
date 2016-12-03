@@ -90,7 +90,7 @@
 	}(_react2.default.Component);
 
 	_Store2.default.dispatch(function (dispatch) {
-	  fetch('/devices', {
+	  fetch('/api/v1/devices', {
 	    method: 'GET',
 	    headers: {
 	      'Accept': 'application/json',
@@ -22755,7 +22755,7 @@
 	      };
 
 	      _Store2.default.dispatch(function (dispatch) {
-	        fetch('/devices/' + _this2.props.id, {
+	        fetch('/api/v1/devices/' + _this2.props.id, {
 	          method: 'PUT',
 	          body: JSON.stringify(data),
 	          headers: {
@@ -22766,7 +22766,7 @@
 	        }).then(function (res) {
 	          return res.json();
 	        }).then(function (res) {
-	          dispatch({ type: 'RECEIVE_ITEM', payload: res });
+	          dispatch({ type: 'RECEIVE_ITEMS', payload: res });
 	        });
 	      });
 	    }
