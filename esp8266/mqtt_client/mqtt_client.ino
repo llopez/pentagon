@@ -90,8 +90,12 @@ void loop() {
   
   client.loop();
 
-  if(digitalRead(0) == HIGH){
-    client.publish("device/1/ack", "button");
+  if(digitalRead(0) == LOW){
+    if(digitalRead(2) == HIGH){
+      client.publish("device/feedback", "1 off");
+    }else{      
+      client.publish("device/feedback", "1 on");
+    }
+    delay(500);
   }
-  
 }
