@@ -10,5 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require turbolinks
-//= require_tree .
+// require turbolinks
+// require_tree .
+//= require cable
+//= require bundle
