@@ -7,5 +7,3 @@ const store = createStore(listReducer, middleware);
 
 
 export default store;
-
-window.store = store;

@@ -9,12 +9,10 @@ class App extends React.Component {
   }
 }
 
-
-App.devices = App.cable.subscriptions.create("DevicesChannel", {
+RailsApp.devices = RailsApp.cable.subscriptions.create("DevicesChannel", {
   connected: function() {},
   disconnected: function() {},
   received: function(data) {
-
     store.dispatch((dispatch) => {
       fetch('/api/v1/devices', {
         method: 'GET',
@@ -29,8 +27,6 @@ App.devices = App.cable.subscriptions.create("DevicesChannel", {
         dispatch({type: 'RECEIVE_ITEMS', payload: res})
       });
     });
-
-
   }
 });
 

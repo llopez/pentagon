@@ -3,11 +3,10 @@
 //
 //= require action_cable
 //= require_self
-// require_tree ./channels
 
 (function() {
-  this.App || (this.App = {});
+  this.RailsApp || (this.RailsApp = {});
 
-  App.cable = ActionCable.createConsumer();
+  RailsApp.cable = ActionCable.createConsumer();
 
 }).call(this);

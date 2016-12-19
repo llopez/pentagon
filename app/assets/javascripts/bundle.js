@@ -89,11 +89,10 @@
 	  return App;
 	}(_react2.default.Component);
 
-	App.devices = App.cable.subscriptions.create("DevicesChannel", {
+	RailsApp.devices = RailsApp.cable.subscriptions.create("DevicesChannel", {
 	  connected: function connected() {},
 	  disconnected: function disconnected() {},
 	  received: function received(data) {
-
 	    _Store2.default.dispatch(function (dispatch) {
 	      fetch('/api/v1/devices', {
 	        method: 'GET',
@@ -21562,9 +21561,6 @@
 
 	exports.default = store;
 
-
-	window.store = store;
-
 /***/ },
 /* 179 */
 /***/ function(module, exports, __webpack_require__) {
@@ -22770,26 +22766,18 @@
 	  _createClass(Item, [{
 	    key: '_toggleState',
 	    value: function _toggleState() {
-	      var _this2 = this;
-
 	      var data = {
 	        state: this.props.state == 'on' ? 'off' : 'on'
 	      };
 
-	      _Store2.default.dispatch(function (dispatch) {
-	        fetch('/api/v1/devices/' + _this2.props.id, {
-	          method: 'PUT',
-	          body: JSON.stringify(data),
-	          headers: {
-	            'Accept': 'application/json',
-	            'Content-Type': 'application/json',
-	            'Authorization': 'Token token=' + '1234'
-	          }
-	        }).then(function (res) {
-	          return res.json();
-	        }).then(function (res) {
-	          dispatch({ type: 'RECEIVE_ITEMS', payload: res });
-	        });
+	      fetch('/api/v1/devices/' + this.props.id, {
+	        method: 'PUT',
+	        body: JSON.stringify(data),
+	        headers: {
+	          'Accept': 'application/json',
+	          'Content-Type': 'application/json',
+	          'Authorization': 'Token token=' + '1234'
+	        }
 	      });
 	    }
 	  }, {

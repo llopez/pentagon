@@ -2,34 +2,25 @@ import React from 'react';
 import store from './../Store';
 
 export default class Item extends React.Component {
-
-  
   constructor(props){
     super(props);
     this._toggleState = this._toggleState.bind(this);
   }
-
 
   _toggleState() {
     let data = {
       state: this.props.state == 'on' ? 'off' : 'on'
     };
 
-    store.dispatch((dispatch) => {
-      fetch('/api/v1/devices/' + this.props.id, {
-        method: 'PUT',
-        body: JSON.stringify(data),
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 'Token token='+ '1234'
-        }
-      }).then((res) => {
-        return res.json();
-      }).then((res) => {
-        dispatch({type: 'RECEIVE_ITEMS', payload: res})
-      });
-    });   
+    fetch('/api/v1/devices/' + this.props.id, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token token='+ '1234'
+      }
+    })
   }
 
   render() {
