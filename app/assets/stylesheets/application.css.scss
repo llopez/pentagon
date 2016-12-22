@@ -72,3 +72,7 @@
  .slider.round:before {
    border-radius: 50%;
  }
+
+article.item p.image {
+  background-image: asset-url('bulb.png');
+}

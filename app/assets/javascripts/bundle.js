@@ -22785,15 +22785,11 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'article',
-	        { className: 'media' },
+	        { className: 'media item' },
 	        _react2.default.createElement(
 	          'figure',
 	          { className: 'media-left' },
-	          _react2.default.createElement(
-	            'p',
-	            { className: 'image is-128x128' },
-	            _react2.default.createElement('img', { src: '/assets/bulb.png' })
-	          )
+	          _react2.default.createElement('p', { className: 'image is-128x128' })
 	        ),
 	        _react2.default.createElement(
 	          'div',

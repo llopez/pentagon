@@ -25,10 +25,9 @@ export default class Item extends React.Component {
 
   render() {
     return (
-      <article className="media">
+      <article className="media item">
         <figure className="media-left">
           <p className="image is-128x128">
-            <img src="/assets/bulb.png" />
           </p>
         </figure>
         <div className="media-content">
