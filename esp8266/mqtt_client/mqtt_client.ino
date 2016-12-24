@@ -43,46 +43,24 @@ void setup_wifi() {
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
-  Serial.print("Message arrived [");
-  Serial.print(topic);
-  Serial.print("] ");
-  for (int i = 0; i < length; i++) {
-    Serial.print((char)payload[i]);
-  }
-  Serial.println();
-
-  // Switch on the LED if an 1 was received as first character
   if ((char)payload[0] == '0') {
-    digitalWrite(2, LOW);   // Turn the LED on (Note that LOW is the voltage level
-    // but actually the LED is on; this is because
-    // it is acive low on the ESP-01)
-    client.publish("device/1/ack", "0");
+    digitalWrite(2, LOW);
   } else {
-    digitalWrite(2, HIGH);  // Turn the LED off by making the voltage HIGH
-    client.publish("device/1/ack", "1");
+    digitalWrite(2, HIGH);
   }
 }
 
 void reconnect() {
-  // Loop until we're reconnected
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
-    // Attempt to connect
-    if (client.connect("ESP8266Client")) {
-      Serial.println("connected");
-      // Once connected, publish an announcement...
-      client.publish("device/1/ack", "connected");
-      // ... and resubscribe
+    if (client.connect("Device1")) {
       client.subscribe("device/1");
     } else {
-      Serial.print("failed, rc=");
-      Serial.print(client.state());
-      Serial.println(" try again in 5 seconds");
-      // Wait 5 seconds before retrying
       delay(5000);
     }
   }
 }
+
 void loop() {
   if (!client.connected()) {
     reconnect();
