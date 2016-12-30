@@ -3,12 +3,11 @@
 int address = 0;
 int i;
 int t;
-byte value;
 String data;
 String input;
 String ssid;
 String pass;
-String serverAddress;
+String server;
 char buff;
 
 void setup() {
@@ -27,12 +26,19 @@ void setup() {
       input = Serial.readStringUntil('\n');
 
       if(input == "yes\r") {
-
         clearEEPROM();
-        
+        Serial.println();
         ssid = prompt("SSID");
         pass = prompt("PASS");
-        serverAddress = prompt("SERVER ADDRESS");
+        server = prompt("SERVER");
+        ssid.trim();
+        pass.trim();
+        server.trim();
+        writeEEPROM(0, ssid);
+        writeEEPROM(ssid.length() + 1, pass);
+        writeEEPROM(pass.length() + ssid.length() + 2, server);
+        
+        EEPROM.commit();
         break;
       }
     }
@@ -40,52 +46,41 @@ void setup() {
     delay(1000);
   }
 
-  ssid.trim();
-  pass.trim();
-
-  writeEEPROM(0, ssid);
-  writeEEPROM(ssid.length(), pass);
-  EEPROM.commit();
+  ssid = readEEPROM(0);
+  pass = readEEPROM(ssid.length() + 1);
+  server = readEEPROM(pass.length() + ssid.length() + 2);
 }
 
 void loop() {
-  ssid = readEEPROM(0);
-  pass = readEEPROM(ssid.length() + 1);
 
   Serial.println(ssid);
   Serial.println(pass);
+  Serial.println(server);
 
   delay(1000);
 }
 
 String readEEPROM(int address) {
   data = "";
-  do {
-    buff = EEPROM.read(address);
+  buff = EEPROM.read(address);
+  while (buff != 0) {
     data += buff;
     address += 1;
-    delay(10);
-  } while (buff != 0);
+    buff = EEPROM.read(address);
+  }
   return data;
 }
 
 void writeEEPROM(int address, String value) {
-  for(i = address; i < value.length(); i++) {
-    EEPROM.write(i, value[i]);
+  for(i = 0; i < value.length(); i++) {
+    EEPROM.write(i + address, value[i]);
   }
-  EEPROM.write(i + 1, 0);
+  EEPROM.write(i + address + 1, 0);
 }
 
 void clearEEPROM() {
   for(i=0; i<255; i++) {
     EEPROM.write(i, 0);
-  }
-  EEPROM.commit();
-}
-
-void fillEEPROM(int value) {
-  for(i=0; i<255; i++) {
-    EEPROM.write(i, value);
   }
   EEPROM.commit();
 }
