@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import store from './Store';
 import List from './components/List';
+import 'whatwg-fetch';
 
 class App extends React.Component {
   render() {
