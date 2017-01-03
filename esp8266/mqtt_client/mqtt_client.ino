@@ -21,10 +21,19 @@ void setup() {
   client.setCallback(callback);
 }
 
+void loop() {
+  if (!client.connected()) {
+    reconnect();
+  }
+  
+  client.loop();
+
+  handleInput();
+}
+
 void setup_wifi() {
 
   delay(10);
-  // We start by connecting to a WiFi network
   Serial.println();
   Serial.print("Connecting to ");
   Serial.println(ssid);
@@ -50,10 +59,24 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
 }
 
+void handleInput() {
+  if(digitalRead(0) == LOW){
+    if(digitalRead(2) == HIGH){
+      client.publish("device/feedback", "1 off");
+      log("1", "button: off");
+    }else{ 
+      client.publish("device/feedback", "1 on");
+      log("1", "button: on");
+    }
+    delay(500);
+  }
+}
+
 void reconnect() {
   while (!client.connected()) {
-    Serial.print("Attempting MQTT connection...");
+    log("1", "Attempting MQTT connection");
     if (client.connect("Device1")) {
+      log("1", "Connected to MQTT");
       client.subscribe("device/1");
     } else {
       delay(5000);
@@ -61,19 +84,7 @@ void reconnect() {
   }
 }
 
-void loop() {
-  if (!client.connected()) {
-    reconnect();
-  }
-  
-  client.loop();
-
-  if(digitalRead(0) == LOW){
-    if(digitalRead(2) == HIGH){
-      client.publish("device/feedback", "1 off");
-    }else{      
-      client.publish("device/feedback", "1 on");
-    }
-    delay(500);
-  }
+void log(char* deviceId, char* msg) {
+  Serial.println(msg);
+  client.publish("device/log", msg);
 }
