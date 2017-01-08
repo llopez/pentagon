@@ -7,9 +7,6 @@ const char* mqtt_server = "192.168.0.40";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
-long lastMsg = 0;
-char msg[50];
-int value = 0;
 
 void setup() {
   pinMode(2, OUTPUT);  
@@ -61,12 +58,11 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
 void handleInput() {
   if(digitalRead(0) == LOW){
+    log("1", "Button");
     if(digitalRead(2) == HIGH){
       client.publish("device/feedback", "1 off");
-      log("1", "button: off");
     }else{ 
       client.publish("device/feedback", "1 on");
-      log("1", "button: on");
     }
     delay(500);
   }
@@ -74,9 +70,8 @@ void handleInput() {
 
 void reconnect() {
   while (!client.connected()) {
-    log("1", "Attempting MQTT connection");
     if (client.connect("Device1")) {
-      log("1", "Connected to MQTT");
+      log("1", "Connected");
       client.subscribe("device/1");
     } else {
       delay(5000);
@@ -85,6 +80,5 @@ void reconnect() {
 }
 
 void log(char* deviceId, char* msg) {
-  Serial.println(msg);
-  client.publish("device/log", msg);
+  client.publish("device/1/log", msg);
 }
