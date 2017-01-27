@@ -9,7 +9,7 @@ module Api
       end
 
       def show
-        render json: @devise
+        render json: @device
       end
 
       def create
@@ -24,7 +24,7 @@ module Api
 
       def update
         if @device.update(device_params)
-          render json: Device.all
+          render json: @device 
         else
           render json: @device.errors, status: :unprocessable_entity
         end
@@ -42,7 +42,7 @@ module Api
       end
 
       def device_params
-        params.require(:device).permit(:name, :state, :ip_address, :pinged_at)
+        params.permit(:name, :state, :ip_address, :pinged_at)
       end
     end
   end
