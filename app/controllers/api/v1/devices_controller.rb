@@ -24,7 +24,7 @@ module Api
 
       def update
         if @device.update(device_params)
-          render json: @device 
+          render json: Device.all
         else
           render json: @device.errors, status: :unprocessable_entity
         end
