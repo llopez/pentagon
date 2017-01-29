@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161120235820) do
+ActiveRecord::Schema.define(version: 20170129180816) do
 
   create_table "devices", force: :cascade do |t|
     t.string   "name"
@@ -19,6 +19,9 @@ ActiveRecord::Schema.define(version: 20161120235820) do
     t.datetime "pinged_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "slug"
+    t.string   "iconid"
+    t.index ["slug"], name: "index_devices_on_slug"
   end
 
 end

@@ -13,5 +13,8 @@
     = f.label :state, class: 'switch' do
       = f.check_box :state, {}, "on", "off"
       .slider
+  .field
+    = f.label :iconid
+    = f.text_field :iconid
   .actions
     = f.submit 'Save'
