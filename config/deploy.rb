@@ -31,3 +31,29 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/syst
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
+
+namespace :deploy do
+  desc "Stop rails server"
+  task :stop do
+    on roles(:app) do
+      within current_path do
+        execute :kill, "`cat tmp/pids/server.pid`"
+      end
+    end
+  end
+  
+  desc "Start rails server"
+  task :start do
+    on roles(:app) do
+      within release_path do
+        with rails_env: 'production' do
+          execute :rails, "server -b 0.0.0.0 -d"
+        end
+      end
+    end
+  end
+end
+
+before "deploy:symlink:release", "deploy:stop"
+after "deploy:symlink:release", "deploy:start"
+
