@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170129180816) do
+ActiveRecord::Schema.define(version: 20170130175451) do
 
   create_table "devices", force: :cascade do |t|
     t.string   "name"
@@ -22,6 +22,14 @@ ActiveRecord::Schema.define(version: 20170129180816) do
     t.string   "slug"
     t.string   "iconid"
     t.index ["slug"], name: "index_devices_on_slug"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "email"
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "auth_token"
   end
 
 end

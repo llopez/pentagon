@@ -7,5 +7,8 @@ Rails.application.routes.draw do
   get 'api/v1/devices/:id' => 'api/v1/devices#show'
   patch 'api/v1/devices/:id' => 'api/v1/devices#update'
 
+  post 'api/v1/auth' => 'api/v1/authentications#create'
+
+
   root to: 'dashboard#show'
 end

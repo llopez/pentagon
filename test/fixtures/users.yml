@@ -1,0 +1,6 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+luis:
+  email: luis@pentagon.com
+  password_digest: "$2a$10$uQUHoW0LeHJppzU8I71ZEuUP216ZOrkhS9mmvPjSuwruAYSYWDJDC"
+  auth_token: 1234
