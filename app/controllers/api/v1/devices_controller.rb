@@ -1,7 +1,10 @@
 module Api
   module V1
     class DevicesController < ActionController::API
+      include ActionController::HttpAuthentication::Token::ControllerMethods
+
       before_action :set_device, only: [:show, :update, :destroy]
+      before_action :authenticate
 
       def index
         @devices = Device.all
@@ -36,6 +39,20 @@ module Api
       end
 
       private
+
+      def authenticate_token
+        authenticate_with_http_token do |token, options|
+          @current_user = User.find_by(auth_token: token)
+        end
+      end
+
+      def authenticate
+        authenticate_token || render_unauthorized
+      end
+
+      def render_unauthorized
+        head :unauthorized
+      end
 
       def set_device
         @device = Device.find(params[:id])

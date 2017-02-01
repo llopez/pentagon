@@ -1,7 +1,7 @@
 class Device < ApplicationRecord
 
 
-#  before_save :send_message, if: :state_changed?
+  before_save :send_message, if: :state_changed?
   before_save :generate_slug
 
   private
