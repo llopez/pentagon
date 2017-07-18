@@ -6,6 +6,25 @@ module Api
       before_action :set_device, only: [:show, :update, :destroy]
       before_action :authenticate
 
+      def menu
+
+        devices =  Device.all
+
+        menu = devices.map do |d|
+          {
+            name: d.name,
+            menu: [
+              {name: 'on', field: 'state', value: 'on', path: "/api/v1/devices/#{d.id}"},
+              {name: 'off', field: 'state', value: 'off', path: "/api/v1/devices/#{d.id}"},
+            ]
+          }
+        end
+
+        render json: menu
+
+
+      end
+
       def index
         @devices = Device.all
         render json: @devices
