@@ -1,0 +1,2 @@
+class Camera < Device
+end

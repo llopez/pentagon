@@ -1,0 +1,2 @@
+class Ir < Device
+end

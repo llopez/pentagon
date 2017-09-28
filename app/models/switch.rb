@@ -1,0 +1,2 @@
+class Switch < Devise
+end

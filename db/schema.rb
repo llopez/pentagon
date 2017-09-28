@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170725001312) do
+ActiveRecord::Schema.define(version: 20170927213534) do
 
   create_table "devices", force: :cascade do |t|
     t.string   "name"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20170725001312) do
     t.string   "slug"
     t.string   "iconid"
     t.integer  "chipid"
+    t.string   "type"
     t.index ["slug"], name: "index_devices_on_slug"
   end
 
