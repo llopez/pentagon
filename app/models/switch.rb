@@ -1,2 +1,2 @@
-class Switch < Devise
+class Switch < Device
 end
