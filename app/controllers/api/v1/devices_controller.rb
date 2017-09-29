@@ -38,7 +38,7 @@ module Api
         @device = Device.new(device_params)
 
         if @device.save
-          render :show, status: :created, location: @device
+          render json: @device, status: :created
         else
           render json: @device.errors, status: :unprocessable_entity
         end

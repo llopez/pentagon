@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get 'dashboard' => 'dashboard#show', as: :dashboard
   get 'api/v1/devices' => 'api/v1/devices#index'
 
+  post 'api/v1/devices' => 'api/v1/devices#create'
+
   get 'api/v1/devices/menu' => 'api/v1/devices#menu'
   
   put 'api/v1/devices/:id' => 'api/v1/devices#update'
