@@ -10,19 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170927213534) do
+ActiveRecord::Schema.define(version: 20171008192336) do
 
   create_table "devices", force: :cascade do |t|
     t.string   "name"
     t.string   "state"
     t.string   "ip_address"
     t.datetime "pinged_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.string   "slug"
     t.string   "iconid"
     t.integer  "chipid"
     t.string   "type"
+    t.string   "streaming_url"
     t.index ["slug"], name: "index_devices_on_slug"
   end
 
