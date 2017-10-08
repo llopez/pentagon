@@ -78,7 +78,7 @@ module Api
       end
 
       def device_params
-        params.permit(:name, :state, :ip_address, :pinged_at)
+        params.permit(:name, :state, :ip_address, :type, :pinged_at, :chipid)
       end
     end
   end
